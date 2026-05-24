@@ -343,12 +343,12 @@
   <p class="section-label">Get in Touch</p>
   <h2 class="section-title">Commission a Piece</h2>
   <p class="section-sub">Interested in a custom botanical arrangement or a piece from the archive? I'd love to hear your vision.</p>
-  <div class="contact-form">
-    <input type="text" placeholder="Your name">
-    <input type="email" placeholder="Email address">
-    <textarea rows="4" placeholder="Tell me about the piece you have in mind…"></textarea>
-    <button class="btn btn-primary" style="align-self:flex-start">Send message</button>
-  </div>
+  <form class="contact-form" action="https://formspree.io/f/mojbnenl" method="POST">
+    <input type="text" name="name" placeholder="Your name" required>
+    <input type="email" name="email" placeholder="Email address" required>
+    <textarea rows="4" name="message" placeholder="Tell me about the piece you have in mind…" required></textarea>
+    <button type="submit" class="btn btn-primary" style="align-self:flex-start">Send message</button>
+  </form>
 </section>
 
 <footer>
