@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timothy Brian Gallery</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Lato:wght@300;400&display=swap');
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --cream:#f5f0e8;--warm-white:#faf7f2;--amber:#c8832a;--amber-light:#e8a84a;
+    --ochre:#a0622a;--forest:#4a5e3a;--forest-light:#6b7f58;--bark:#6b4c2a;
+    --dust:#8c7b68;--charcoal:#2e2a24;--paper:#ede8df;
+    --plum:#7a3a6a;--violet:#5a3a7a;--magenta:#a04878;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:'Lato',sans-serif;background:var(--warm-white);color:var(--charcoal);font-weight:300}
+
+  nav{
+    position:fixed;top:0;width:100%;z-index:100;
+    background:rgba(245,240,232,0.96);backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(107,76,42,0.15);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 3rem;height:64px;
+  }
+  .nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;letter-spacing:0.08em;color:var(--charcoal)}
+  .nav-logo span{color:var(--amber);font-style:italic}
+  .nav-links{display:flex;gap:2.5rem;list-style:none}
+  .nav-links a{font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--dust);text-decoration:none;transition:color 0.2s}
+  .nav-links a:hover{color:var(--amber)}
+
+  /* HERO */
+  .hero{
+    min-height:100vh;background:var(--cream);
+    display:grid;grid-template-columns:1fr 1fr;align-items:center;
+    padding:0 5rem;margin-top:64px;position:relative;overflow:hidden;
+  }
+  .hero::before{content:'';position:absolute;top:-60px;right:-60px;width:420px;height:420px;border-radius:50%;background:rgba(200,131,42,0.07)}
+  .hero-text{z-index:1}
+  .hero-eyebrow{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--amber);margin-bottom:1.2rem}
+  .hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5vw,4.2rem);line-height:1.1;color:var(--charcoal);margin-bottom:1.5rem}
+  .hero-title em{color:var(--forest);font-style:italic}
+  .hero-sub{font-size:1rem;color:var(--dust);line-height:1.8;max-width:360px;margin-bottom:2.5rem}
+  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn{padding:0.75rem 2rem;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:none;transition:all 0.25s;font-family:'Lato',sans-serif;font-weight:400}
+  .btn-primary{background:var(--amber);color:#fff;border-radius:2px}
+  .btn-primary:hover{background:var(--ochre)}
+  .btn-outline{background:transparent;color:var(--forest);border:1px solid var(--forest);border-radius:2px}
+  .btn-outline:hover{background:var(--forest);color:#fff}
+  .hero-visual{display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+  .hero-frame{
+    width:340px;height:420px;background:#fff;
+    box-shadow:8px 12px 40px rgba(107,76,42,0.18),-2px -2px 0 var(--paper);
+    display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  }
+  .hero-frame::after{content:'';position:absolute;inset:18px;border:1px solid rgba(107,76,42,0.1);pointer-events:none;z-index:1}
+  .hero-frame img{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* SECTIONS */
+  section{padding:6rem 5rem}
+  .section-label{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--amber);margin-bottom:0.8rem}
+  .section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);color:var(--charcoal);margin-bottom:1rem;line-height:1.2}
+  .section-sub{font-size:0.95rem;color:var(--dust);line-height:1.8;max-width:500px;margin-bottom:3rem}
+  .divider{width:48px;height:1px;background:var(--amber-light);margin:2rem 0}
+
+  /* ABOUT */
+  .about{background:var(--paper);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+  .about-quote{font-family:'Playfair Display',serif;font-size:1.6rem;font-style:italic;color:var(--forest);line-height:1.6;border-left:3px solid var(--amber-light);padding-left:1.5rem;margin-bottom:2rem}
+  .about-body{font-size:0.95rem;color:var(--dust);line-height:1.9}
+  .about-visual{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .about-card{background:var(--warm-white);padding:1.5rem 1.2rem;border-bottom:2px solid var(--amber-light)}
+  .about-card-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--amber);margin-bottom:0.4rem}
+  .about-card-label{font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--dust)}
+
+  /* GALLERY */
+  .gallery{background:var(--warm-white)}
+  .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+  .gallery-item{cursor:pointer;overflow:hidden;position:relative;transition:transform 0.3s}
+  .gallery-item:hover{transform:translateY(-5px)}
+  .gallery-item:nth-child(2){margin-top:1.5rem}
+  .gallery-item:nth-child(4){margin-top:2.5rem}
+  .gallery-item:nth-child(6){margin-top:-1rem}
+  .gallery-thumb{
+    width:100%;aspect-ratio:3/4;background:var(--paper);
+    overflow:hidden;position:relative;
+    border:1px solid rgba(107,76,42,0.1);
+  }
+  .gallery-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s}
+  .gallery-item:hover .gallery-thumb img{transform:scale(1.04)}
+  .gallery-overlay{position:absolute;inset:0;background:rgba(46,42,36,0.52);display:flex;align-items:flex-end;padding:1rem;opacity:0;transition:opacity 0.3s}
+  .gallery-item:hover .gallery-overlay{opacity:1}
+  .gallery-overlay-text{color:#fff;font-family:'Playfair Display',serif;font-size:0.9rem;font-style:italic}
+  .gallery-caption{padding:0.7rem 0 0}
+  .gallery-caption h3{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--charcoal);margin-bottom:0.2rem}
+  .gallery-caption p{font-size:0.75rem;letter-spacing:0.06em;color:var(--dust)}
+
+  /* SHOP */
+  .shop{background:var(--cream)}
+  .shop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+  .shop-card{background:var(--warm-white);border:1px solid rgba(107,76,42,0.1);transition:box-shadow 0.3s,transform 0.3s;cursor:pointer}
+  .shop-card:hover{box-shadow:0 8px 32px rgba(107,76,42,0.14);transform:translateY(-3px)}
+  .shop-img{width:100%;aspect-ratio:1;background:var(--paper);overflow:hidden;border-bottom:1px solid rgba(107,76,42,0.08)}
+  .shop-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s}
+  .shop-card:hover .shop-img img{transform:scale(1.05)}
+  .shop-info{padding:1rem}
+  .shop-info h3{font-family:'Playfair Display',serif;font-size:0.95rem;margin-bottom:0.25rem;color:var(--charcoal)}
+  .shop-info p{font-size:0.78rem;color:var(--dust);margin-bottom:0.7rem;line-height:1.5}
+  .shop-row{display:flex;align-items:center;justify-content:space-between}
+  .shop-price{font-family:'Playfair Display',serif;font-size:1rem;color:var(--amber)}
+  .btn-cart{padding:0.4rem 0.85rem;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;background:var(--forest);color:#fff;border:none;cursor:pointer;transition:background 0.2s;font-family:'Lato',sans-serif}
+  .btn-cart:hover{background:var(--forest-light)}
+  .btn-cart:disabled{background:var(--dust);cursor:default}
+  .shop-badge{display:inline-block;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;background:var(--amber);color:#fff;padding:0.18rem 0.55rem;margin-bottom:0.5rem}
+  .shop-badge.sold{background:var(--dust)}
+
+  /* CONTACT */
+  .contact{background:var(--charcoal);text-align:center;padding:6rem 3rem}
+  .contact .section-label{color:var(--amber-light)}
+  .contact .section-title{color:var(--cream);margin:0 auto 1rem;max-width:600px}
+  .contact .section-sub{color:rgba(245,240,232,0.5);margin:0 auto 2.5rem}
+  .contact-form{max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:1rem}
+  .contact-form input,.contact-form textarea{background:rgba(255,255,255,0.07);border:1px solid rgba(245,240,232,0.2);color:var(--cream);padding:0.85rem 1.1rem;font-family:'Lato',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s;resize:none}
+  .contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(245,240,232,0.3)}
+  .contact-form input:focus,.contact-form textarea:focus{border-color:var(--amber-light)}
+
+  footer{background:var(--charcoal);border-top:1px solid rgba(245,240,232,0.1);padding:2rem 5rem;display:flex;align-items:center;justify-content:space-between}
+  .footer-logo{font-family:'Playfair Display',serif;font-size:0.95rem;color:rgba(245,240,232,0.4)}
+  .footer-logo span{color:var(--amber-light);font-style:italic}
+  .footer-copy{font-size:0.75rem;color:rgba(245,240,232,0.3)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Timothy <span>Brian</span> Gallery</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Dried Botanical Art</p>
+    <h1 class="hero-title">Nature,<br><em>preserved.</em></h1>
+    <p class="hero-sub">Hand-pressed dried botanicals capturing the quiet beauty of the natural world — each piece a moment held still in time.</p>
+    <div class="hero-btns">
+      <a href="#gallery" class="btn btn-primary">View Gallery</a>
+      <a href="#shop" class="btn btn-outline">Shop Pieces</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-frame">
+      <img src="images/purple-dianthus.jpg" alt="Pressed purple dianthus on stem">
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div>
+    <p class="section-label">The Artist</p>
+    <div class="about-quote">"I find beauty in what others overlook — petals past their peak, seeds gone to husk, stems turned to silk."</div>
+    <div class="divider"></div>
+    <p class="about-body">Timothy Brian is a self-proclaimed artist working from Richmond, Virginia, where he collects, presses, and arranges dried botanicals into framed compositions. Each piece is made entirely by hand using foraged and cultivated plant material — flowers, citrus, leaves, and seed pods preserved at their most expressive.</p>
+  </div>
+  <div class="about-visual">
+    <div class="about-card"><div class="about-card-num">100%</div><div class="about-card-label">Natural materials</div></div>
+    <div class="about-card"><div class="about-card-num">One</div><div class="about-card-label">Of a kind pieces</div></div>
+    <div class="about-card" style="grid-column:span 2"><div class="about-card-num">Hand</div><div class="about-card-label">Crafted &amp; pressed by the artist</div></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <p class="section-label">Selected Work</p>
+  <h2 class="section-title">The Collection</h2>
+  <p class="section-sub">Eight original pressed botanical compositions — each piece unique, each one a study in stillness.</p>
+  <div class="gallery-grid">
+
+    <div class="gallery-item">
+      <div class="gallery-thumb">
+        <img src="images/daffodil.jpg" alt="Golden Daffodil">
+        <div class="gallery-overlay"><div class="gallery-overlay-text">Golden Daffodil</div></div>
+      </div>
+      <div class="gallery-caption"><h3>Golden Daffodil</h3><p>Pressed narcissus</p></div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="gallery-thumb">
+        <img src="images/hellebore.jpg" alt="Dried Hellebore">
+        <div class="gallery-overlay"><div class="gallery-overlay-text">Dried Hellebore</div></div>
+      </div>
+      <div class="gallery-caption"><h3>Dried Hellebore</h3><p>Preserved winter rose</p></div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="gallery-thumb">
+        <img src="images/celosia-plume.jpg" alt="Celosia Plume">
+        <div class="gallery-overlay"><div class="gallery-overlay-text">Celosia Plume</div></div>
+      </div>
+      <div class="gallery-caption"><h3>Celosia Plume</h3><p>Dried cockscomb, magenta</p></div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="gallery-thumb">
+        <img src="images/purple-dianthus.jpg" alt="Purple Dianthus">
+        <div class="gallery-overlay"><div class="gallery-overlay-text">Purple Dianthus</div></div>
+      </div>
+      <div class="gallery-caption"><h3>Purple Dianthus</h3><p>Pressed on stem with leaves</p></div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="gallery-thumb">
+        <img src="images/buttercup.jpg" alt="Tiny Buttercup">
+        <div class="gallery-overlay"><div class="gallery-overlay-text">Tiny Buttercup</div></div>
+      </div>
+      <div class="gallery-caption"><h3>Tiny Buttercup</h3><p>Miniature pressed ranunculus</p></div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="gallery-thumb">
+        <img src="images/violet-zinnia.jpg" alt="Violet Zinnia">
+        <div class="gallery-overlay"><div class="gallery-overlay-text">Violet Zinnia</div></div>
+      </div>
+      <div class="gallery-caption"><h3>Violet Zinnia</h3><p>Pressed zinnia, deep purple</p></div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="gallery-thumb">
+        <img src="images/chrysanthemum.jpg" alt="Dusty Chrysanthemum">
+        <div class="gallery-overlay"><div class="gallery-overlay-text">Dusty Chrysanthemum</div></div>
+      </div>
+      <div class="gallery-caption"><h3>Dusty Chrysanthemum</h3><p>Pressed daisy, warm rose-brown</p></div>
+    </div>
+
+    <div class="gallery-item">
+      <div class="gallery-thumb">
+        <img src="images/citrus-study-1.jpg" alt="Citrus Study No. 1">
+        <div class="gallery-overlay"><div class="gallery-overlay-text">Citrus Study No. 1</div></div>
+      </div>
+      <div class="gallery-caption"><h3>Citrus Study No. 1</h3><p>Pressed orange on stem</p></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SHOP -->
+<section class="shop" id="shop">
+  <p class="section-label">Available Pieces</p>
+  <h2 class="section-title">Shop the Studio</h2>
+  <p class="section-sub">Every piece is original and one of a kind. Once it's gone, it's gone — just like the season it came from.</p>
+  <div class="shop-grid">
+
+    <div class="shop-card">
+      <div class="shop-img"><img src="images/daffodil.jpg" alt="Golden Daffodil"></div>
+      <div class="shop-info">
+        <span class="shop-badge">Available</span>
+        <h3>Golden Daffodil</h3>
+        <p>5×7 framed · pressed narcissus on archival paper</p>
+        <div class="shop-row"><span class="shop-price">$58</span><button class="btn-cart">Add to cart</button></div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-img"><img src="images/hellebore.jpg" alt="Dried Hellebore"></div>
+      <div class="shop-info">
+        <span class="shop-badge">Available</span>
+        <h3>Dried Hellebore</h3>
+        <p>5×7 framed · preserved winter rose, gold tones</p>
+        <div class="shop-row"><span class="shop-price">$65</span><button class="btn-cart">Add to cart</button></div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-img"><img src="images/celosia-plume.jpg" alt="Celosia Plume"></div>
+      <div class="shop-info">
+        <span class="shop-badge">Available</span>
+        <h3>Celosia Plume</h3>
+        <p>4×6 framed · dried cockscomb, vivid magenta</p>
+        <div class="shop-row"><span class="shop-price">$48</span><button class="btn-cart">Add to cart</button></div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-img"><img src="images/purple-dianthus.jpg" alt="Purple Dianthus"></div>
+      <div class="shop-info">
+        <span class="shop-badge">Available</span>
+        <h3>Purple Dianthus</h3>
+        <p>5×7 framed · pressed on stem with leaves</p>
+        <div class="shop-row"><span class="shop-price">$72</span><button class="btn-cart">Add to cart</button></div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-img"><img src="images/buttercup.jpg" alt="Tiny Buttercup"></div>
+      <div class="shop-info">
+        <span class="shop-badge">Available</span>
+        <h3>Tiny Buttercup</h3>
+        <p>3×4 framed · miniature pressed ranunculus</p>
+        <div class="shop-row"><span class="shop-price">$38</span><button class="btn-cart">Add to cart</button></div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-img"><img src="images/violet-zinnia.jpg" alt="Violet Zinnia"></div>
+      <div class="shop-info">
+        <span class="shop-badge sold">Sold Out</span>
+        <h3>Violet Zinnia</h3>
+        <p>5×7 framed · pressed zinnia, deep purple</p>
+        <div class="shop-row"><span class="shop-price">$62</span><button class="btn-cart" disabled>Sold out</button></div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-img"><img src="images/chrysanthemum.jpg" alt="Dusty Chrysanthemum"></div>
+      <div class="shop-info">
+        <span class="shop-badge">Available</span>
+        <h3>Dusty Chrysanthemum</h3>
+        <p>5×7 framed · pressed daisy, warm rose-brown</p>
+        <div class="shop-row"><span class="shop-price">$60</span><button class="btn-cart">Add to cart</button></div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-img"><img src="images/citrus-study-1.jpg" alt="Citrus Study No. 1"></div>
+      <div class="shop-info">
+        <span class="shop-badge">Available</span>
+        <h3>Citrus Study No. 1</h3>
+        <p>5×7 framed · dried orange on stem, archival paper</p>
+        <div class="shop-row"><span class="shop-price">$68</span><button class="btn-cart">Add to cart</button></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <p class="section-label">Get in Touch</p>
+  <h2 class="section-title">Commission a Piece</h2>
+  <p class="section-sub">Interested in a custom botanical arrangement or a piece from the archive? I'd love to hear your vision.</p>
+  <div class="contact-form">
+    <input type="text" placeholder="Your name">
+    <input type="email" placeholder="Email address">
+    <textarea rows="4" placeholder="Tell me about the piece you have in mind…"></textarea>
+    <button class="btn btn-primary" style="align-self:flex-start">Send message</button>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Timothy <span>Brian</span> Gallery</div>
+  <div class="footer-copy">© 2026 · Richmond, Virginia · All rights reserved</div>
+</footer>
+
+</body>
+</html>
